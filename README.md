@@ -7,7 +7,7 @@
 https://www.python.org/downloads/
 * Install Git
 
-## Setup virtual environment with pipenv
+### Setup virtual environment with pipenv
 
 $ pip3 install pipenv
 
@@ -35,48 +35,76 @@ $ python manage.py runserver //--> to ensure django and virtual environment setu
 
 ctrl+C //--> exit server
 
-## Connect to MySQL
+## Week 2: Django database configuration and Models
+### Connect to MySQL
 
 $ pipenv install mysqlclient //--> adds mysqlclient as dependency
 
 $ pipenv install //--> update all dependencies
 
-* Log into MySQL command line
-
-$ CREATE DATABASE reservations;
-
-$ SHOW DATABASES;
-
-## Configurate settings.py
+### Configurate settings.py
 
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME':'reservations',
+        'NAME':'littlelemon',
         'HOST':'127.0.0.1',
         'PORT':'3306',
-        'USER':'admindjango',
-        'PASSWORD':'employee@123!',
-    }
+        'USER':'root',
+        'PASSWORD':'',
+        'OPTIONS':{
+            'init_command':"SET sql_mode ='STRICT_TRANS_TABLES'"
+        }
 }
 INSTALLED_APPS =[
     'restaurant'
 ]
 
-## Ensure MySQL is properly connected to the django app
+### Access MySQL through VS Code
+
+* Install MySQL extension from VS Code extension marketplace: MySQL by Jun Han
 
 $ python manage.py makemigrations
-
 $ python manage.py migrate
+
+* MySQL should be on the VS code explorer menu.  Click + to get access to database LittleLemon.
+### Create Database and Connect to MySQL through MySQL command line
 
 * Log into MySQL command line
 
-$ SHOW DATABASE;
+$ CREATE DATABASE database_name;
 
-$ USE reservations;
+$ SHOW DATABASES;
+
+$ USE database_name;
 
 $ show tables;
 
-$ describe restaurant_booking;
+$ describe table; //--> see details of the table
+
+* Create user for the database;
+
+$ CREATE USER 'admindjango'@'localhost' IDENTIFIED BY 'employee@123!' ;
+
+$ SELECT user FROM mysql.user //--> to ensure your user has been created
+
+$ GRANT ALL ON *.* TO 'admindjango'@'localhost';
+
+$ FLUSH PRIVILEGES; //--> update the user's access to all tables
 
 $ exit; //--> exit MySQL
+
+* Update settings.py with correct user and password;
+
+## Setting up models: Booking and Menu
+
+## Register Booking and Menu on admin.py, then access admin on browser
+
+$ python manage.py createsuperuser
+Username: admin
+email address: admin@littlelemon.com
+password: LittleLemon123!
+
+$ python manage.py runserver
+
+* go to server /admin, then login
