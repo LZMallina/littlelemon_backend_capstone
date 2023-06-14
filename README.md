@@ -65,6 +65,7 @@ INSTALLED_APPS =[
 * Install MySQL extension from VS Code extension marketplace: MySQL by Jun Han
 
 $ python manage.py makemigrations
+
 $ python manage.py migrate
 
 * MySQL should be on the VS code explorer menu.  Click + to get access to database LittleLemon.
@@ -96,9 +97,9 @@ $ exit; //--> exit MySQL
 
 * Update settings.py with correct user and password;
 
-## Setting up models: Booking and Menu
+### Setting up models: Booking and Menu
 
-## Register Booking and Menu on admin.py, then access admin on browser
+### Register Booking and Menu on admin.py, then access admin on browser
 
 $ python manage.py createsuperuser
 Username: admin
@@ -108,3 +109,18 @@ password: LittleLemon123!
 $ python manage.py runserver
 
 * go to server /admin, then login
+
+## Week 2: Adding APIs
+
+### Set up the menu API
+
+$ pip3 install djangorestframework
+
+* Configurate settings.py
+
+INSTALLED_APPS =[
+ ‘restaurant’,
+ ‘rest_framework’,
+]
+
+### Set up the table booking API
