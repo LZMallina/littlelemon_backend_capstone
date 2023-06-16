@@ -124,3 +124,82 @@ INSTALLED_APPS =[
 ]
 
 ### Set up the table booking API
+
+## Week 3: Security and Testing
+
+### User Authentication
+* To use token-based DRF authentication 
+
+Step 1: Configurate settings.py
+
+INSTALLED_APPS =[
+    'rest_framework.authtoken',
+]
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES':[
+        'rest_framework.authentication.TokenAuthentication',
+    ]
+}
+
+Step 2: make migrations
+
+* Add the registration page using Djoser authentication library and modify the existing user's credential from within the app instead of the admin interface
+
+Step 1: Install djoser
+
+$ pipenv shell //--> activate virtual environment
+
+$ pipenv install djoser
+
+Step 2: Configurate settings.py
+--> settings.py
+INSTALLED_APPS = [
+    'djoser'
+]
+
+DJOSER = {
+    'USER_ID_FIELD':'username',
+    'LOGIN_FIELD':'email', //--> to set username as email
+}
+
+REST_FRAMEWORK = {
+
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+  'rest_framework.authentication.TokenAuthentication',
+        'rest_framework.authentication.SessionAuthentication',
+    ],
+}
+
+Step 3: Enable djoser endpoints by adding the following URL routes in the project's URL patterns.
+
+* add following lines to update urlpatterns list
+path('auth/', include('djoser.urls')),
+path('auth/', include('djoser.urls.authtoken'))
+
+Step 4: Run the migration to create the token field in admin
+
+$ python manage.py makemigrations
+$ python manage.py migrate
+$ python manage.py runserver
+
+### Securing the table booking API
+
+Step 1: Add the 'rest_framework.authtoken' app to the list of INSTALLED_APPS in the settings.py file
+
+Step 2: Import the IsAuthenticated class from the rest_framework.permissions module in the views.py file.
+
+Step 3: You already have the BookingViewSet class in the views.py file. To secure this view, set the permission_classes property to a list containing IsAuthenticated.
+
+permission_classes = [IsAuthenticated]
+
+Step 4: Open the app's urls.py and import the following function:
+
+
+* import obtain_auth_token view
+from rest_framework.authtoken.views import obtain_auth_token
+
+In the same file add a new URL route to the urlpatterns list:
+
+* add following line in urlpatterns list
+path('api-token-auth/', obtain_auth_token)
