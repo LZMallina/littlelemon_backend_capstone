@@ -203,3 +203,21 @@ In the same file add a new URL route to the urlpatterns list:
 
 * add following line in urlpatterns list
 path('api-token-auth/', obtain_auth_token)
+
+### Adding unit test
+Step 1
+
+When you create the app, an empty test.py file is created in the app package folder. Go ahead and delete it.
+
+In the project container folder, create a new folder with the name tests.
+
+Step 2
+
+* Create files inside of test folder:
+    __init__.py  //--> this allows python to identify the root folder
+    test_urls.py
+    test_views.py
+    test_models.py
+
+
+Step 3: python manage.py test to run all test
