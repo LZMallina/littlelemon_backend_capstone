@@ -29,3 +29,14 @@ http://127.0.0.1:8000/restaurant/menu/7
 To confirm Delete
 
 Get with http://127.0.0.1:8000/restaurant/menu
+
+Testing: TokenAuthentication 
+
+http://127.0.0.1:8000/restaurant/api-token-auth/
+
+select Post, Multipart
+
+In the body: 
+username: admin
+password: LittleLemon123!
+
