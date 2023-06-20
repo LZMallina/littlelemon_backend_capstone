@@ -221,3 +221,5 @@ Step 2
 
 
 Step 3: python manage.py test to run all test
+
+### Testing API using Insomnia
